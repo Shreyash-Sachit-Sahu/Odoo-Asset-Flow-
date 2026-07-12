@@ -30,11 +30,11 @@ public class AssetAllocationServiceImpl implements AssetAllocationService {
     @Transactional
     public AssetAllocation allocateAsset(AssetAllocationRequestDTO requestDTO) {
         // 1. Check if the asset is already allocated right now
-        List<AssetAllocation> activeAllocation = allocationRepository
+        Optional<AssetAllocation> activeAllocation = allocationRepository
                 .findActiveAllocationByAssetId(requestDTO.getAssetId());
 
         if (!activeAllocation.isEmpty()) {
-            Long currentHolderId = activeAllocation.get(0).getUser().getId();
+            Long currentHolderId = activeAllocation.get().getUser().getId();
             throw new AssetAlreadyAllocatedException(
                 "Asset ID " + requestDTO.getAssetId() + " is already allocated to User ID " + currentHolderId + 
                 ". Please initiate an Asset Transfer instead."
