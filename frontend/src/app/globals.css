@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/*
+ * AssetFlow design tokens — from the frontend build prompt §2, verbatim values.
+ * Neutral cool paper + one blueprint-cobalt accent that sits apart from the
+ * status hues (those live in lib/statusSystem.ts).
+ */
+@theme {
+  /* Canvas & surfaces */
+  --color-paper: #f6f7f9;
+  --color-surface: #ffffff;
+  --color-ink: #17191f;
+  --color-muted: #5b6270;
+  --color-faint: #8a909c;
+  --color-hairline: #e4e7ec;
+  --color-hover: #f0f2f5;
+
+  /* Brand accent — actions, focus, active nav */
+  --color-cobalt-700: #2530b8;
+  --color-cobalt-600: #2b36d9;
+  --color-cobalt-500: #4b57f0;
+  --color-cobalt-050: #eef0fe;
+  --color-cobalt-50: #eef0fe;
+  --color-focus: #4b57f0;
+
+  /* Danger (overdue emphasis + destructive actions) */
+  --color-danger-700: #b42318;
+  --color-danger-600: #d92d20;
+  --color-danger-500: #f04438;
+  --color-danger-050: #fef3f2;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo,
+    Consolas, monospace;
+
+  --shadow-card: 0 1px 2px rgb(23 25 31 / 0.04), 0 1px 3px rgb(23 25 31 / 0.05);
+  --shadow-pop: 0 4px 12px rgb(23 25 31 / 0.08), 0 12px 32px rgb(23 25 31 / 0.1);
+  --shadow-overlay: 0 8px 24px rgb(23 25 31 / 0.12), 0 24px 64px rgb(23 25 31 / 0.16);
+
+  --animate-fade-in: fade-in 140ms ease-out;
+  --animate-scale-in: scale-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-in-right: slide-in-right 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-up: slide-up 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.97) translateY(4px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes slide-in-right {
+    from { transform: translateX(24px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { transform: translateY(8px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+}
+
+@layer base {
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::placeholder {
+    color: var(--color-faint);
+  }
+
+  ::selection {
+    background-color: var(--color-cobalt-050);
+    color: var(--color-cobalt-700);
+  }
+
+  /* Visible keyboard focus, everywhere, no exceptions. */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Thin scrollbars for dense panels (calendar, drawers). */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-hairline) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--color-hairline);
+    border-radius: 3px;
+  }
+}
