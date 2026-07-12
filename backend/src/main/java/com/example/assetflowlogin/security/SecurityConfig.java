@@ -1,5 +1,6 @@
 package com.example.assetflowlogin.security;
 
+import org.springframework.security.config.Customizer;
 import com.example.assetflowlogin.security.JwtAuthenticationEntryPoint;  
 import com.example.assetflowlogin.security.JwtAuthenticationFilter;     
 import com.example.assetflowlogin.security.CustomUserDetailsService;
