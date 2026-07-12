@@ -1,0 +1,17 @@
+package com.example.assetflowlogin.activity;
+
+public enum ActivityAction {
+    ROLE_CHANGE,
+    ALLOCATE,
+    RETURN,
+    TRANSFER_REQUEST,
+    TRANSFER_APPROVE,
+    TRANSFER_REJECT,
+    BOOKING_CREATE,
+    BOOKING_CANCEL,
+    MAINTENANCE_REQUEST,
+    MAINTENANCE_APPROVE,
+    MAINTENANCE_REJECT,
+    MAINTENANCE_RESOLVE,
+    AUDIT_DISCREPANCY
+}

@@ -15,6 +15,7 @@ import com.example.assetflowlogin.repository.AssetRepository; // Assuming this e
 import com.example.assetflowlogin.repository.UserRepository;  // Assuming this exists
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,11 +30,11 @@ public class AssetAllocationServiceImpl implements AssetAllocationService {
     @Transactional
     public AssetAllocation allocateAsset(AssetAllocationRequestDTO requestDTO) {
         // 1. Check if the asset is already allocated right now
-        Optional<AssetAllocation> activeAllocation = allocationRepository
+        List<AssetAllocation> activeAllocation = allocationRepository
                 .findActiveAllocationByAssetId(requestDTO.getAssetId());
 
-        if (activeAllocation.isPresent()) {
-            Long currentHolderId = activeAllocation.get().getUser().getId();
+        if (!activeAllocation.isEmpty()) {
+            Long currentHolderId = activeAllocation.get(0).getUser().getId();
             throw new AssetAlreadyAllocatedException(
                 "Asset ID " + requestDTO.getAssetId() + " is already allocated to User ID " + currentHolderId + 
                 ". Please initiate an Asset Transfer instead."
